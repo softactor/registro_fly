@@ -1,4 +1,5 @@
 <?php session_start(); 
+header('location:admin');
 date_default_timezone_set('Asia/Singapore');
 include 'connection/connect.php';
 include 'helper/utilities.php';
