@@ -12,12 +12,14 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i> Message</a></li>
-            <li><a href="configure_queue_number.php"><i class="fa fa-circle-o"></i> Queue</a></li>
+            <li class="active"><a href="group_list.php"><i class="fa fa-circle-o"></i> Group List</a></li>
+            <li class="active"><a href="contact_list.php"><i class="fa fa-circle-o"></i> Contact List</a></li>
+            <li class="active"><a href="message_templates.php"><i class="fa fa-circle-o"></i> Message Template</a></li>
+            <li><a href="message_queue_manage.php"><i class="fa fa-circle-o"></i> Queue Manage</a></li>
           </ul>
         </li>
         <li class="header">Links</li>
-        <li><a href="regitration_queue.php"><i class="fa fa-circle-o text-red"></i> <span>Registration Queue</span></a></li>
+        <li><a href="send_message.php"><i class="fa fa-circle-o text-red"></i> <span>Send message</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->
