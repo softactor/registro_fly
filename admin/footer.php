@@ -1,5 +1,5 @@
   <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo date("Y"); ?> <a href="http://saifpowertecltd.com/">Registro/</a>.</strong> All rights
+    <strong>Copyright &copy; <?php echo date("Y"); ?> <a href="http://flyingpigeon.com.sg/">flyingpigeon/</a>.</strong> All rights
     reserved.
   </footer>
   <!-- Add the sidebar's background. This div must be placed

@@ -7,7 +7,7 @@ include '../function/login_process.php';
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Registro Queue | Log in</title>
+        <title>flyingpigeon | Log in</title>
         <link rel="shortcut icon" type="image/x-icon" href="../images/icon/port.png" />
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -36,7 +36,7 @@ include '../function/login_process.php';
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo login-logo-overwrite">
-                <a href="index.php"><b>Registro Queue</b></a>
+                <a href="index.php"><b>flyingpigeon</b></a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
