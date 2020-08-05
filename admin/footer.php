@@ -45,7 +45,7 @@
 <script src="../js/bootstrap-toggle.min.js"></script>
 <script type="text/javascript">
     $( document ).ready(function() {
-        $("#visitor_queue_table_data").DataTable();
+        $("#group_list").DataTable();
     });
     function set_resend_sms_queue_number(){
         $.ajax({
@@ -79,7 +79,7 @@ function visitor_event_exit_status(visitor_id){
         }
     });
 }
-function deleteVisitor(id) {
+function deleteGroupName(id) {
     swal({
         title: 'Confirmed?',
         type: "warning",
@@ -91,13 +91,13 @@ function deleteVisitor(id) {
     },
             function () {
                 $.ajax({
-                    url: baseUrl + "function/registration_process.php?process_type=deleteVisitor",
+                    url: baseUrl + "function/group_process.php?process_type=deleteGroup",
                     type: 'POST',
                     data: 'id=' + id,
                     dataType: 'JSON',
                     success: function (response) {
                         if (response.status == 'success') {
-                            $('#visitor_queue_id_' + id).hide('slow');
+                            $('#group_name_row_' + id).hide('slow');
                             swal("Delete complete", response.message, "success");
                             setTimeout(function () {
                                 swal.close();
