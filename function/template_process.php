@@ -88,15 +88,11 @@ if (isset($_POST['whatsapp_template_save']) && !empty($_POST['whatsapp_template_
                 exit();
 }
 
-function process_file_upload(){
-    /*
-     * $targetDirectory
-     * $inputFileName
-     * $saveFileName
-     * $templateId
-     * $uploadTypeDirectory
-     * 
-     */
+function process_file_upload($uplodData){
+    $inputFileName              =   $uplodData['inputFileName'];
+    $templateId                 =   $uplodData['templateId'];
+    $uploadTypeDirectory        =   $uplodData['uploadTypeDirectory'];
+    
     $uploadOk           = 1;
     $uploadErrordata    = [];
     $target_dir         = "resource/$uploadTypeDirectory/";
@@ -121,16 +117,13 @@ function process_file_upload(){
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $error = true;
-        $_SESSION['error_data']['image_uploaded_msg'] = 'Sorry, Failed to upload image.';
+        array_push($uploadErrordata,'Sorry, Failed to upload image.');
         // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES[$inputFileName]["tmp_name"], $target_file)) {
-            $image_path = $productFileName;
-            $_SESSION['error_data']['image_uploaded_msg'] = "The file " . basename($_FILES[$inputFileName]["name"]) . " has been uploaded.";
+            $uploadOk   =   1;
         } else {
-            $error = true;
-            $_SESSION['error_data']['image_uploaded_msg'] = 'Sorry, Failed to upload image.';
+            $uploadOk   =   1;
         }
     }
 }

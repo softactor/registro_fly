@@ -3,5 +3,7 @@
 /nbproject/private/
 /nbproject
 vendor
+resource
+resource/
 vendor/
 admin/sms/
