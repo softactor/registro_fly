@@ -11,11 +11,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>Contact Info</small>
+            <small>User Info</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Contact Info</li>
+            <li class="active">User Info</li>
         </ol>
     </section>
 
@@ -29,13 +29,13 @@
                         <h3 class="box-title"></h3>
                         <div class="box-tools">
                             <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="contact_create.php"><i class="fa fa-user-plus"></i> Create</a></li>
+                                <li><a href="user_create.php"><i class="fa fa-user-plus"></i> Create</a></li>
                             </ul>
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <?php include 'partial/contact_list.php'; ?>
+                        <?php include 'partial/users_list.php'; ?>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -50,11 +50,3 @@
 </div>
 <!-- /.content-wrapper -->
 <?php include 'footer.php'; ?>
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-

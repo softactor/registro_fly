@@ -18,14 +18,16 @@ if (isset($_POST['group_save']) && !empty($_POST['group_save'])) {
         header("location: group_add.php");
         exit();
     } else {
-        $emailsql = "SELECT * FROM groups where name='$name'";
-        $result = $conn->query($emailsql);
+        $userId     =   $_SESSION['logged']['user_id'];
+        $emailsql   =   "SELECT * FROM groups where name='$name' AND client_id=$userId";
+        $result     =   $conn->query($emailsql);
         if ($result->num_rows > 0) {
             $_SESSION['error'] = "Found Duplicate Data";
             header("location: group_add.php");
             exit();
         } else {
-            $regData['name']            = $name;
+            $regData['name']                = $name;
+            $regData['client_id']           = $userId;
             saveData('groups', $regData);
             $_SESSION['success']        = "Data have been successfuly saved";
             header("location: group_list.php");
@@ -34,9 +36,10 @@ if (isset($_POST['group_save']) && !empty($_POST['group_save'])) {
     }
 }
 if (isset($_POST['group_update']) && !empty($_POST['group_update'])) {
-    $error_status = false;
-    $error_string = [];
-    $id     =   $_POST['edit_id'];
+    $error_status   = false;
+    $error_string   = [];
+    $client_id      =   $_SESSION['logged']['user_id'];
+    $id             =   $_POST['edit_id'];
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = validate_text_input($_POST['name']);
     } else {
@@ -52,11 +55,11 @@ if (isset($_POST['group_update']) && !empty($_POST['group_update'])) {
         header("location: group_add.php");
         exit();
     } else {
-        $emailsql = "SELECT * FROM groups where name='$name' AND id!=$id";
+        $emailsql = "SELECT * FROM groups where name='$name' AND id!=$id AND client_id=$client_id";
         $result = $conn->query($emailsql);
         if ($result->num_rows > 0) {
             $_SESSION['error'] = "Found Duplicate Data";
-            header("location: group_add.php");
+            header("location: group_edit.php?edit_id=".$id);
             exit();
         } else {
             $regData['name']            = $name;

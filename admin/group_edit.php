@@ -5,6 +5,17 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
+    <section class="content-header">
+        <?php include 'operation_message.php'; ?>
+        <h1>
+            Home
+            <small>Group Edit</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Group Edit</li>
+        </ol>
+    </section>
     <section class="content">
         <!-- Small boxes (Stat box) -->
         <div class="row">

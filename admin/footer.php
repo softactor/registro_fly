@@ -46,6 +46,7 @@
 <script type="text/javascript">
     $( document ).ready(function() {
         $("#group_list").DataTable();
+        $("#client_list").DataTable();
     });
     function set_resend_sms_queue_number(){
         $.ajax({

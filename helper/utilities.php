@@ -202,15 +202,24 @@ function deleteRecordByWhere($table) {
 
 function is_super_admin($user_id, $roleName = 'sa') {
     global $conn;
-    $sql    =   "SELECT r.*
-                     FROM roles as r
-                     JOIN users as u 
-                     ON r.id = u.role_id
-                     WHERE u.id = $user_id";
+    $sql    =   "SELECT * FROM users WHERE id = $user_id";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {  
             $users = $result->fetch_object();
-            if ($users->short_name == $roleName) {
+            if ($users->user_type == $roleName) {
+                return true;
+            }
+            return false;
+        }
+    return false;
+}
+function is_client_has_this_service($user_id, $service) {
+    global $conn;
+    $sql    =   "SELECT * FROM client_information WHERE user_id = $user_id";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {  
+            $users = $result->fetch_object();
+            if ($users->{$service}) {
                 return true;
             }
             return false;
@@ -314,6 +323,29 @@ function hasAccessPermission($user_id, $page_name, $accessType) {
 function getRoleNameByRoleId($id){
     global $conn;
     $table  =   "roles";
+    $sql = "SELECT * FROM $table WHERE id=$id";
+    $result = $conn->query($sql);
+    $name   =   '';
+    if ($result->num_rows > 0) {
+        $name   =   $result->fetch_object()->name;
+    }
+    return $name;
+}
+function get_client_name($id){
+    global $conn;
+    $table  =   "client_information";
+    $sql = "SELECT * FROM $table WHERE user_id=$id";
+    $result = $conn->query($sql);
+    $name   =   '';
+    if ($result->num_rows > 0) {
+        $data   =   $result->fetch_object();
+        $name   =   $data->first_name.' '.$data->last_name;
+    }
+    return $name;
+}
+function get_group_name($id){
+    global $conn;
+    $table  =   "groups";
     $sql = "SELECT * FROM $table WHERE id=$id";
     $result = $conn->query($sql);
     $name   =   '';

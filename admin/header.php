@@ -6,8 +6,12 @@ if(!isset($_SESSION['logged']['status'])){
 }
 include '../connection/connect.php';
 include '../helper/utilities.php';
+include '../function/login_process.php';
 include '../function/group_process.php';
+include '../function/client_process.php';
+include '../function/contact_process.php';
 include '../function/registration_process.php';
+include '../function/template_process.php';
 ?>
 <!DOCTYPE html>
 <html>

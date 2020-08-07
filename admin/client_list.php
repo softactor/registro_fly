@@ -11,11 +11,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>Contact Info</small>
+            <small>Client Info</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Contact Info</li>
+            <li class="active">Client Info</li>
         </ol>
     </section>
 
@@ -29,13 +29,13 @@
                         <h3 class="box-title"></h3>
                         <div class="box-tools">
                             <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="contact_create.php"><i class="fa fa-user-plus"></i> Create</a></li>
+                                <li><a href="client_create.php"><i class="fa fa-user-plus"></i> Create</a></li>
                             </ul>
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <?php include 'partial/contact_list.php'; ?>
+                        <?php include 'partial/client_list.php'; ?>
                     </div>
                     <!-- /.box-body -->
                 </div>

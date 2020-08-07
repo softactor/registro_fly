@@ -5,13 +5,16 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Main content -->
-    <section class="content">
-      <!-- Small boxes (Stat box) -->
-      <div class="row">
-          <div class="col-md-12">
-              <h2>Welcome to Dashboard</h2>
-          </div>
-      </div>
+    <section class="content-header">
+        <?php include 'operation_message.php'; ?>
+        <h1>
+            Home
+            <small>Dashboard</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
     </section>
     <!-- /.content -->
   </div>

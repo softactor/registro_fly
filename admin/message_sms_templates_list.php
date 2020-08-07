@@ -9,11 +9,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>Group List</small>
+            <small>SMS Template List</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Group List</li>
+            <li class="active">SMS Template List</li>
         </ol>
     </section>
     <section class="content">
@@ -24,10 +24,10 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <h3>Group List</h3>
+                                <h3>SMS Template List</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <a href="group_add.php" class="btn btn-primary pull-right"><span class="fa fa-plus-circle"></span>&nbsp;ADD </a>
+                                <a href="message_sms_templates_create.php" class="btn btn-primary pull-right"><span class="fa fa-plus-circle"></span>&nbsp;ADD </a>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="box-body">
                         <?php
                         $user_id    =   $_SESSION['logged']['user_id'];
-                        $table      =   ((is_super_admin($user_id)) ? "groups":"groups WHERE client_id=$user_id");
+                        $table      =   ((is_super_admin($user_id)) ? "template_details":"groups WHERE client_id=$user_id");
                         $order      = 'asc';
                         $column     = 'name';
                         $groupList  = getTableDataByTableName($table);
@@ -75,7 +75,7 @@
                         </div>
                         <?php }else{ ?>
                             <div class="alert alert-info">
-                                <strong>Sorry!</strong> Group List Have No Data.
+                                <strong>Sorry!</strong> There is No Data.
                             </div>
                         <?php } ?>
                     </div>

@@ -36,25 +36,26 @@ include '../function/login_process.php';
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo login-logo-overwrite">
+                <?php include 'operation_message.php'; ?>
                 <a href="index.php"><b>flyingpigeon</b></a>
             </div>
             <!-- /.login-logo -->
             <div class="login-box-body">
                 <form action="" method="post">
                     <div class="form-group has-feedback">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="email" name="email" class="form-control" placeholder="Email" value="<?php if (isset($_SESSION['email']) && !empty($_SESSION['email'])){ echo $_SESSION['email']; } ?>">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                         <?php if (isset($_SESSION['error_message']['email_empty']) && !empty($_SESSION['error_message']['email_empty'])) { ?>
-                                <div class="alert alert-warning">
-                                    <strong>Warning!</strong> <?php echo $_SESSION['error_message']['email_empty']; ?>
+                                <div class="text-danger">
+                                    <?php echo $_SESSION['error_message']['email_empty']; ?>
                                 </div>
                                 <?php
                                 unset($_SESSION['error_message']['email_empty']);
                             }
                             ?>
                             <?php if (isset($_SESSION['error_message']['email_valid']) && !empty($_SESSION['error_message']['email_valid'])) { ?>
-                                <div class="alert alert-warning">
-                                    <strong>Warning!</strong> <?php echo $_SESSION['error_message']['email_valid']; ?>
+                                <div class="text-danger">
+                                    <?php echo $_SESSION['error_message']['email_valid']; ?>
                                 </div>
                                 <?php
                                 unset($_SESSION['error_message']['email_valid']);
@@ -65,8 +66,8 @@ include '../function/login_process.php';
                         <input type="password" name="password" class="form-control" placeholder="Password">
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                         <?php if (isset($_SESSION['error_message']['password_empty']) && !empty($_SESSION['error_message']['password_empty'])) { ?>
-                            <div class="alert alert-warning">
-                                <strong>Warning!</strong> <?php echo $_SESSION['error_message']['password_empty']; ?>
+                            <div class="text-danger">
+                                <?php echo $_SESSION['error_message']['password_empty']; ?>
                             </div>
                             <?php
                             unset($_SESSION['error_message']['password_empty']);
