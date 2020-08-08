@@ -36,8 +36,12 @@ if (isset($agencyData) && !empty($agencyData)) {
                         <td><?php echo (isset($adata->contact_no) && !empty($adata->contact_no) ? $adata->contact_no : 'No data'); ?></td>
                         <td><?php echo (isset($adata->created_at) && !empty($adata->created_at) ? $adata->created_at : 'No data'); ?></td>
                         <td>
-                            <a href="user_edit.php" title="Edit"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)" title="Delete"><i class="fa fa-close text-danger"></i></a>
+                            <a href="message_whatsapp_templates_edit.php?edit_id=<?php echo $data->id ?>" class="btn btn-info">
+                                <span class="fa fa-pencil-square-o"></span>&nbsp;Edit
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_templates('<?php echo $data->id; ?>');">
+                                <span class="fa fa-close"></span>&nbsp;Delete
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

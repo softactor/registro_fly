@@ -1,4 +1,8 @@
-<?php session_start(); 
+<?php session_start();
+if(isset($_SESSION['logged']['status'])){
+    header("location: dashboard.php");
+    exit();
+}
 include '../connection/connect.php';
 include '../function/login_process.php';
 ?>

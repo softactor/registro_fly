@@ -34,8 +34,8 @@ $_SESSION['activeMenu'] = 'agency';
                         <div class="box-body">
                             <div class="form-group">
                                 <?php
-                                    $userId     =   $_SESSION['logged']['user_id'];
-                                    $table = 'groups WHERE client_id='.$userId;
+                                    $user_id = $_SESSION['logged']['user_id'];
+                                    $table = ((is_super_admin($user_id)) ? "groups" : "groups WHERE client_id=$user_id");
                                     $order = 'ASC';
                                     $column = 'name';
                                     $dataType = 'obj';

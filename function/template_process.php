@@ -24,7 +24,7 @@ if (isset($_POST['whatsapp_template_update']) && !empty($_POST['whatsapp_templat
         $insdata['footer']              =   validate_text_input($_POST['footer']);
         $insdata['body']                =   validate_text_input($_POST['body']);
         $insdata['client_id']           =   $clientId;
-        $insdata['template_type']       =   'whatsapp';
+        $insdata['template_type']       =   $_POST['template_type'];
         $insdata['updated_at']          =   date('Y-m-d H:i:s');
         $insdata['updated_by']          =   $clientId;
         $where['id']                    =   $edit_id;
@@ -90,7 +90,7 @@ if (isset($_POST['whatsapp_template_update']) && !empty($_POST['whatsapp_templat
             $_SESSION['success']=   'Data have been successfully Updated';
         }
     }
-    header("location: message_whatsapp_templates_list.php");
+    header("location: message_templates_list.php");
     exit();
 }
 
@@ -111,7 +111,7 @@ if (isset($_POST['whatsapp_template_save']) && !empty($_POST['whatsapp_template_
         $insdata['footer']              =   validate_text_input($_POST['footer']);
         $insdata['body']                =   validate_text_input($_POST['body']);
         $insdata['client_id']           =   $clientId;
-        $insdata['template_type']       =   'whatsapp';
+        $insdata['template_type']       =   $_POST['template_type'];
         $insdata['created_at']          =   date('Y-m-d H:i:s');
         $insdata['created_by']          =   $clientId;
         
@@ -176,7 +176,7 @@ if (isset($_POST['whatsapp_template_save']) && !empty($_POST['whatsapp_template_
             $_SESSION['success']=   'Data have been successfully saved';
         }
     }
-    header("location: message_whatsapp_templates_list.php");
+    header("location: message_templates_list.php");
     exit();
 }
 
@@ -331,4 +331,52 @@ if(isset($_GET['process_type']) && $_GET['process_type'] == 'deleteUploadedFile'
     ];
     
     echo json_encode($feedback);
+}
+
+if(isset($_GET['process_type']) && $_GET['process_type'] == 'deleteTemplates'){
+    session_start();
+    date_default_timezone_set('Asia/Singapore');
+    include '../connection/connect.php';
+    include '../helper/utilities.php';
+    $id             =   $_POST['id'];
+    $tableData      =   getDataRowByTableAndId('template_details', $id);
+    if(isset($tableData->audio_file) && !empty($tableData->audio_file)){
+        $afiletobedeleted        =   '../resource/audio/'.$tableData->audio_file;
+        unlink($afiletobedeleted);
+    }
+    if(isset($tableData->image_file) && !empty($tableData->image_file)){
+        $ifiletobedeleted        =   '../resource/image/'.$tableData->image_file;
+        unlink($ifiletobedeleted);
+    }
+    if(isset($tableData->video_file) && !empty($tableData->video_file)){
+        $vfiletobedeleted        =   '../resource/video/'.$tableData->video_file;
+        unlink($vfiletobedeleted);
+    }
+    
+    $table              = 'template_details WHERE id='.$id;
+    deleteRecordByWhere($table);
+    
+    $totalData          = getDataRowByTable('template_details');
+    
+    $filetobedeleted        =   '';
+    $feedback   =   [
+        'status'        =>  'success',
+        'total_data'    =>  $totalData,
+        'message'       =>  "File have been successfully deleted."
+    ];
+    
+    echo json_encode($feedback);
+}
+if(isset($_GET['process_type']) && $_GET['process_type'] == 'getTemplateForm'){
+    session_start();
+    date_default_timezone_set('Asia/Singapore');
+    include '../connection/connect.php';
+    include '../helper/utilities.php';
+    if(isset($_POST['id']) && !empty($_POST['id'])){
+    $id             =   $_POST['id'];
+    $editData      =   getDataRowByTableAndId('template_details', $id);    
+        include '../admin/partial/get_template_form.php';
+    }else{
+        include '../admin/partial/get_normal_form.php';
+    }
 }

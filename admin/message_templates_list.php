@@ -9,11 +9,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>SMS Template List</small>
+            <small>Template List</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">SMS Template List</li>
+            <li class="active">Template List</li>
         </ol>
     </section>
     <section class="content">
@@ -24,10 +24,10 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <h3>SMS Template List</h3>
+                                <h3>Template List</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <a href="message_sms_templates_create.php" class="btn btn-primary pull-right"><span class="fa fa-plus-circle"></span>&nbsp;ADD </a>
+                                <a href="message_templates_create.php" class="btn btn-primary pull-right"><span class="fa fa-plus-circle"></span>&nbsp;ADD </a>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="box-body">
                         <?php
                         $user_id    =   $_SESSION['logged']['user_id'];
-                        $table      =   ((is_super_admin($user_id)) ? "template_details":"groups WHERE client_id=$user_id");
+                        $table      =   ((is_super_admin($user_id)) ? "template_details":"template_details WHERE client_id=$user_id");
                         $order      = 'asc';
                         $column     = 'name';
                         $groupList  = getTableDataByTableName($table);
@@ -46,8 +46,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Template Type</th>
+                                        <th>Template Name</th>
                                         <th>Client Name</th>
-                                        <th>Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,15 +57,16 @@
                                         $count  =   1;
                                         foreach($groupList as $data){
                                     ?>
-                                    <tr id="group_name_row_<?php echo $data->id; ?>">
+                                    <tr id="template_row_id_<?php echo $data->id; ?>">
                                         <td><?php echo $count++; ?></td>
-                                        <td><?php echo get_client_name($data->client_id) ?></td>
+                                        <td><?php echo $data->template_type; ?></td>
                                         <td><?php echo $data->name ?></td>
+                                        <td><?php echo get_client_name($data->client_id) ?></td>
                                         <td>
-                                            <a href="group_edit.php?edit_id=<?php echo $data->id ?>" class="btn btn-info">
+                                            <a href="message_templates_edit.php?edit_id=<?php echo $data->id ?>" class="btn btn-info">
                                                 <span class="fa fa-pencil-square-o"></span>&nbsp;Edit
                                             </a>
-                                            <a href="javascript:void(0)" class="btn btn-danger" onclick="deleteGroupName('<?php echo $data->id; ?>');">
+                                            <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_templates('<?php echo $data->id; ?>');">
                                                 <span class="fa fa-close"></span>&nbsp;Delete
                                             </a>
                                         </td>

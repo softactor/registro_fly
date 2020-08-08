@@ -9,11 +9,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>Whatsapp Template Edit</small>
+            <small>Template Edit</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Whatsapp Template Edit</li>
+            <li class="active">Template Edit</li>
         </ol>
     </section>
     <section class="content">
@@ -24,10 +24,10 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <h3>Whatsapp Template Edit</h3>
+                                <h3>Template Edit</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <a href="message_whatsapp_templates_list.php" class="btn btn-primary pull-right"><span class="fa fa-list"></span>&nbsp;LIST </a>
+                                <a href="message_templates_list.php" class="btn btn-primary pull-right"><span class="fa fa-list"></span>&nbsp;LIST </a>
                             </div>
                         </div>
                     </div>
@@ -40,9 +40,22 @@
                                 $table      =   ((is_super_admin($user_id)) ? "template_details":"template_details WHERE client_id=$user_id AND id=$id");
                                 $editData  = getDataRowIdAndTable($table);
                             ?>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label><span class="text-danger">&nbsp;Required</span>
-                                <input value="<?php if(isset($editData->name) && !empty($editData->name)){ echo $editData->name; } ?>" type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Template Type</label>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label class="radio-inline"><input type="radio" name="template_type" value="whatsapp" <?php if(isset($editData->template_type) && $editData->template_type == 'whatsapp'){ echo 'checked'; } ?>>Whatsapp</label>
+                                        <label class="radio-inline"><input type="radio" name="template_type" value="sms"<?php if(isset($editData->template_type) && $editData->template_type == 'sms'){ echo 'checked'; } ?>>SMS</label>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name</label><span class="text-danger">&nbsp;Required</span>
+                                        <input value="<?php if(isset($editData->name) && !empty($editData->name)){ echo $editData->name; } ?>" type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">

@@ -38,6 +38,7 @@
 <script src="../vendor/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../vendor/dist/js/adminlte.min.js"></script>
+<script src="../vendor/bower_components/select2/dist/js/select2.full.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- AdminLTE for demo purposes -->
 <script src="../js/site_url.js"></script>
@@ -47,6 +48,8 @@
     $( document ).ready(function() {
         $("#group_list").DataTable();
         $("#client_list").DataTable();
+        $('#message_receiver_multiple').select2();
+        $('#message_receiver_group').select2();
     });
     function set_resend_sms_queue_number(){
         $.ajax({
@@ -135,6 +138,58 @@ function delete_multimedia_file(id,type) {
                     }
                 });
             });
+}
+function delete_templates(id) {
+    swal({
+        title: 'Confirmed?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+            function () {
+                $.ajax({
+                    url: baseUrl + "function/template_process.php?process_type=deleteTemplates",
+                    type: 'POST',
+                    data: 'id=' + id,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response.status == 'success') {
+                            $('#template_row_id_' + id).hide('slow');
+                            swal("Delete complete", response.message, "success");
+                            setTimeout(function () {
+                                
+                                if(response.total_data == 0){
+                                    window.location.reload();
+                                }else{
+                                   swal.close(); 
+                                }
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+}
+function get_template_message_form(template_id=null){
+    $.ajax({
+        url: baseUrl + "function/template_process.php?process_type=getTemplateForm",
+        type: 'POST',
+        data: 'id=' + template_id,
+        dataType: 'html',
+        success: function (response) {
+            $('#dynamic_message_fields').html(response);
+            if(template_id){
+                $("#template_type_n").prop("checked", false);
+                $("#template_type_t").prop("checked", true);
+            }else{
+                $("#template_id option:selected").prop("selected", false)
+                $("#template_type_t").prop("checked", false);
+                $("#template_type_n").prop("checked", true);
+            }
+        }
+    });
 }
 </script>
 </body>

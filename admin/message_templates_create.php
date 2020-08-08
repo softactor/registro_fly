@@ -9,11 +9,11 @@
         <?php include 'operation_message.php'; ?>
         <h1>
             Home
-            <small>Whatsapp Template Add</small>
+            <small>Template Add</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Whatsapp Template Add</li>
+            <li class="active">Template Add</li>
         </ol>
     </section>
     <section class="content">
@@ -24,20 +24,34 @@
                     <div class="box-header">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <h3>Whatsapp Template Add</h3>
+                                <h3>Template Add</h3>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <a href="message_sms_templates_list.php" class="btn btn-primary pull-right"><span class="fa fa-list"></span>&nbsp;LIST </a>
+                                <a href="message_templates_list.php" class="btn btn-primary pull-right"><span class="fa fa-list"></span>&nbsp;LIST </a>
                             </div>
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <form role="form" action="" method="post" enctype="multipart/form-data">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Name</label><span class="text-danger">&nbsp;Required</span>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Template Type</label>
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <label class="radio-inline"><input type="radio" name="template_type" value="whatsapp" checked>Whatsapp</label>
+                                        <label class="radio-inline"><input type="radio" name="template_type" value="sms">SMS</label>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name</label><span class="text-danger">&nbsp;Required</span>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
