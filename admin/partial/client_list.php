@@ -34,8 +34,12 @@ if (isset($agencyData) && !empty($agencyData)) {
                         <td><?php echo (isset($adata->whatsapp_rate) && !empty($adata->whatsapp_rate) ? $adata->whatsapp_rate : 'No data'); ?></td>
                         <td><?php echo (isset($adata->balance) && !empty($adata->balance) ? $adata->balance : 'No data'); ?></td>
                         <td>
-                            <a href="user_edit.php" title="Edit"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)" title="Delete"><i class="fa fa-close text-danger"></i></a>
+                            <a href="user_edit.php?user_id=<?php echo $adata->id; ?>" class="btn btn-info">
+                                <span class="fa fa-pencil-square-o"></span>&nbsp;Edit
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_templates('<?php echo $data->id; ?>');">
+                                <span class="fa fa-close"></span>&nbsp;Delete
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

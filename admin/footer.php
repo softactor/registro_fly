@@ -46,6 +46,7 @@
 <script src="../js/bootstrap-toggle.min.js"></script>
 <script type="text/javascript">
     $( document ).ready(function() {
+        $("#users_list").DataTable();
         $("#group_list").DataTable();
         $("#client_list").DataTable();
         $('#message_receiver_multiple').select2();

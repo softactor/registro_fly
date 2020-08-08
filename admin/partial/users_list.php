@@ -7,7 +7,7 @@ $agencyData = getTableDataByTableName($table, $order, $column, $dataType);
 if (isset($agencyData) && !empty($agencyData)) {
     ?>
     <div class="table-responsive">
-        <table id="example1" class="table table-bordered table-striped list-table-custom-style">
+        <table id="users_list" class="table table-bordered table-striped list_table_custom_style">
             <thead>
                 <tr>
                     <th>SLN#</th>
@@ -30,8 +30,12 @@ if (isset($agencyData) && !empty($agencyData)) {
                         <td><?php echo (isset($adata->last_name) && !empty($adata->last_name) ? $adata->last_name : 'No data'); ?></td>
                         <td><?php echo (isset($adata->email) && !empty($adata->email) ? $adata->email : 'No data'); ?></td>
                         <td>
-                            <a href="user_edit.php?user_id=<?php echo $adata->id; ?>" title="Edit"><i class="fa fa-pencil"></i></a>
-                            <a href="javascript:void(0)" title="Delete"><i class="fa fa-close text-danger"></i></a>
+                            <a href="user_edit.php?user_id=<?php echo $adata->id; ?>" class="btn btn-info">
+                                <span class="fa fa-pencil-square-o"></span>&nbsp;Edit
+                            </a>
+                            <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_templates('<?php echo $data->id; ?>');">
+                                <span class="fa fa-close"></span>&nbsp;Delete
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>
