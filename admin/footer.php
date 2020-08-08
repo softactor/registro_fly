@@ -84,6 +84,34 @@ function visitor_event_exit_status(visitor_id){
         }
     });
 }
+function delete_users(id) {
+    swal({
+        title: 'Confirmed?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+            function () {
+                $.ajax({
+                    url: baseUrl + "function/users_process.php?process_type=deleteUser",
+                    type: 'POST',
+                    data: 'id=' + id,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response.status == 'success') {
+                            $('#user_name_row_' + id).hide('slow');
+                            swal("Delete complete", response.message, "success");
+                            setTimeout(function () {
+                                swal.close();
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+}
 function deleteGroupName(id) {
     swal({
         title: 'Confirmed?',

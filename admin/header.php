@@ -6,6 +6,7 @@ if(!isset($_SESSION['logged']['status'])){
 }
 include '../connection/connect.php';
 include '../helper/utilities.php';
+include '../function/users_process.php';
 include '../function/login_process.php';
 include '../function/group_process.php';
 include '../function/client_process.php';
