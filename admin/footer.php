@@ -108,6 +108,34 @@ function deleteGroupName(id) {
                 });
             });
 }
+function delete_multimedia_file(id,type) {
+    swal({
+        title: 'Confirmed?',
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Yes",
+        cancelButtonText: 'No',
+        closeOnConfirm: false
+    },
+            function () {
+                $.ajax({
+                    url: baseUrl + "function/template_process.php?process_type=deleteUploadedFile",
+                    type: 'POST',
+                    data: 'id=' + id+'&type='+type,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response.status == 'success') {
+                            $('#file_view_id_' + type).hide('slow');
+                            swal("Delete complete", response.message, "success");
+                            setTimeout(function () {
+                                swal.close();
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+}
 </script>
 </body>
 </html>

@@ -36,7 +36,9 @@
                         <div class="box-body">
                             <?php
                                 $id         =   $_GET['edit_id'];
-                                $groupData  = getDataRowByTableAndId('groups', $id);
+                                $user_id    =   $_SESSION['logged']['user_id'];
+                                $table      =   ((is_super_admin($user_id)) ? "groups":"groups WHERE client_id=$user_id AND id=$id");
+                                $groupData  = getDataRowIdAndTable($table);
                             ?>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Name</label>
