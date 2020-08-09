@@ -1,35 +1,5 @@
 <?php
-/*
-     * Array
-        (
-            [message_type] => whatsapp
-            [receivers] => Array
-                (
-                    [0] => 11
-                    [1] => 10
-                    [2] => 9
-                )
-
-            [groups] => Array
-                (
-                    [0] => 4
-                    [1] => 5
-                )
-
-            [template_type] => t
-            [template_id] => 10
-            [header] => H
-            [footer] => F
-            [body] => B
-            [sending_message] => Send
-        )
-     */
 if (isset($_POST['sending_message']) && !empty($_POST['sending_message'])) {
-    print '<pre>';
-    print_r($_SERVER);
-    print '</pre>';
-    exit;
-    //http://flyingpigeon.com.sg/admin/sms/Twilio/send_message.php
     $error_status = false;
     
     $message_type       =   $_POST['message_type'];
@@ -99,13 +69,13 @@ function get_message_temeplate_data(){
     $aFile      =   "";
     $vFile      =   "";
     if(isset($_POST['ifile']) && !empty($_POST['ifile'])){
-        $iFile      =   $_SERVER['HTTP_HOST'].'/resource/image/'.$_POST['ifile'];
+        $iFile      =   $_SERVER['HTTP_ORIGIN'].'/resource/image/'.$_POST['ifile'];
     }
     if(isset($_POST['afile']) && !empty($_POST['afile'])){
-        $aFile      =   $_SERVER['HTTP_HOST'].'/resource/audio/'.$_POST['afile'];
+        $aFile      =   $_SERVER['HTTP_ORIGIN'].'/resource/audio/'.$_POST['afile'];
     }
     if(isset($_POST['vfile']) && !empty($_POST['vfile'])){
-        $vFile      =   $_SERVER['HTTP_HOST'].'/resource/video/'.$_POST['vfile'];
+        $vFile      =   $_SERVER['HTTP_ORIGIN'].'/resource/video/'.$_POST['vfile'];
     }
     $message.=   chr(10).$header;
     $message.=   chr(10).$body;
