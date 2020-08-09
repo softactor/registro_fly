@@ -133,7 +133,7 @@ function store_message_details_processing($data){
             if(!in_array($mh->contact_no, $contactContainer)){
                 $hisData    =   [
                     'message_id'    =>  $message_id,
-                    'contact_no'    =>  $mh->contact_no,
+                    'contact_no'    =>  '+65'.$mh->contact_no,
                     'created_at'    =>  date("Y-m-d H:i:s"),
                     'created_by'    =>  $_SESSION['logged']['user_id']
                 ];
@@ -147,7 +147,7 @@ function store_message_details_processing($data){
             if(!in_array($mh->contact_no, $contactContainer)){
                 $hisData    =   [
                     'message_id'    =>  $message_id,
-                    'contact_no'    =>  $mh->contact_no,
+                    'contact_no'    =>  '+65'.$mh->contact_no,
                     'created_at'    =>  date("Y-m-d H:i:s"),
                     'created_by'    =>  $_SESSION['logged']['user_id']
                 ];
