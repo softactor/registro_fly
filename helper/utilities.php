@@ -489,15 +489,9 @@ function get_not_sent_message_contact_numbers(){
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
-        if (isset($dataType) && $dataType == 'obj') {
-            while ($row = $result->fetch_object()) {
+        while ($row = $result->fetch_object()) {
                 $dataContainer[] = $row;
             }
-        } else {
-            while ($row = $result->fetch_assoc()) {
-                $dataContainer[] = $row;
-            }
-        }
     }
     return $dataContainer;
 }
