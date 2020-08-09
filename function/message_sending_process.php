@@ -25,6 +25,11 @@
         )
      */
 if (isset($_POST['sending_message']) && !empty($_POST['sending_message'])) {
+    print '<pre>';
+    print_r($_SERVER);
+    print '</pre>';
+    exit;
+    //http://flyingpigeon.com.sg/admin/sms/Twilio/send_message.php
     $error_status = false;
     
     $message_type       =   $_POST['message_type'];
