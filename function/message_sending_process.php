@@ -48,9 +48,10 @@ if (isset($_POST['sending_message']) && !empty($_POST['sending_message'])) {
     $mresponse         =   store_message_processing($messageParam);
     if(isset($mresponse) && $mresponse['status']    ==  'success'){
         $mdetails           =   [
-            'message_id'     =>  $mresponse['last_id'],
+            'message_id'    =>  $mresponse['last_id'],
             'receivers'     =>  $receivers,
             'groups'        =>  $groupReceivers,
+            'message'       =>  $messageData,
         ];
         $detailsResponse    =   store_message_details_processing($mdetails);
         $_SESSION['success']        = "Data have been successfuly sent for message";
@@ -88,23 +89,29 @@ function get_message_temeplate_data(){
     $footer     =   trim($_POST['footer']);
     $body       =   trim($_POST['body']);
     
-    $message =   "";
+    $message    =   "";
+    $iFile      =   "";
+    $aFile      =   "";
+    $vFile      =   "";
     if(isset($_POST['ifile']) && !empty($_POST['ifile'])){
         $iFile      =   $_SERVER['HTTP_HOST'].'/resource/image/'.$_POST['ifile'];
-        $message.=   chr(10).$iFile;
     }
     if(isset($_POST['afile']) && !empty($_POST['afile'])){
-        $aFile      =   $_SERVER['HTTP_HOST'].'/resource/audio/'.$_POST['afile']; 
-        $message.=   chr(10).$aFile;
+        $aFile      =   $_SERVER['HTTP_HOST'].'/resource/audio/'.$_POST['afile'];
     }
     if(isset($_POST['vfile']) && !empty($_POST['vfile'])){
-        $vFile      =   $_SERVER['HTTP_HOST'].'/resource/video/'.$_POST['vfile']; 
-        $message.=   chr(10).$vFile;
+        $vFile      =   $_SERVER['HTTP_HOST'].'/resource/video/'.$_POST['vfile'];
     }
     $message.=   chr(10).$header;
     $message.=   chr(10).$body;
     $message.=   chr(10).$footer;
-    return $message;
+    $feedBack   =   [
+        'ifile'     =>  $iFile,
+        'afile'     =>  $aFile,
+        'vfile'     =>  $vFile,
+        'body'      =>  $message
+    ];
+    return $feedBack;
 }
 function get_message_new_data(){
 }
@@ -128,11 +135,16 @@ function store_message_details_processing($data){
     $message_id         =   $data['message_id'];
     $receivers          =   $data['receivers'];
     $groups             =   $data['groups'];
+    $message             =   $data['message'];
     if(isset($receivers) && !empty($receivers)){
         foreach($receivers as $mh){
             if(!in_array($mh->contact_no, $contactContainer)){
                 $hisData    =   [
                     'message_id'    =>  $message_id,
+                    'audio_file'    =>  $message['afile'],
+                    'video_file'    =>  $message['vfile'],
+                    'image_file'    =>  $message['ifile'],
+                    'body'          =>  $message['body'],
                     'contact_no'    =>  '+65'.$mh->contact_no,
                     'created_at'    =>  date("Y-m-d H:i:s"),
                     'created_by'    =>  $_SESSION['logged']['user_id']

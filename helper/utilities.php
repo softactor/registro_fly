@@ -453,3 +453,51 @@ function ordinal($number) {
         return $number. $ends[$number % 10];
     }
 }
+
+function message_cron_is_running(){
+    $table              =   "message_cron";
+    global $conn;
+    $sql = "SELECT is_status FROM $table";
+    $result = $conn->query($sql);
+    $number   =   0;
+    if ($result->num_rows > 0) {
+        $number  = $result->fetch_object();
+        return $number->is_status;
+    }
+    return $number;
+}
+
+function get_send_message_limit(){
+    $table              =   "message_limit";
+    global $conn;
+    $sql = "SELECT limit_no FROM $table";
+    $result = $conn->query($sql);
+    $number   =   100;
+    if ($result->num_rows > 0) {
+        $number  = $result->fetch_object();
+        return $number->limit_no;
+    }
+    return $number;
+}
+
+function get_not_sent_message_contact_numbers(){
+    global $conn;
+    $dataContainer = [];
+    $table      =   'message_send_history';
+    $limit      =   get_send_message_limit();
+    $sql        = "SELECT * FROM $table WHERE is_status=0 LIMIT $limit";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        // output data of each row
+        if (isset($dataType) && $dataType == 'obj') {
+            while ($row = $result->fetch_object()) {
+                $dataContainer[] = $row;
+            }
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                $dataContainer[] = $row;
+            }
+        }
+    }
+    return $dataContainer;
+}
