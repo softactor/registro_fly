@@ -11,8 +11,8 @@ include '../function/login_process.php';
 include '../function/group_process.php';
 include '../function/client_process.php';
 include '../function/contact_process.php';
-include '../function/registration_process.php';
 include '../function/template_process.php';
+include '../function/message_sending_process.php';
 ?>
 <!DOCTYPE html>
 <html>

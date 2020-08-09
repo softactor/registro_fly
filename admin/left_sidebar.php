@@ -24,7 +24,7 @@
                 </ul>
             </li>
             <li class="header">Links</li>
-            <li><a href="send_message.php"><i class="fa fa-commenting" aria-hidden="true"></i> <span>SMS</span></a></li>
+            <li><a href="send_message.php"><i class="fa fa-commenting" aria-hidden="true"></i> <span>Send Message</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

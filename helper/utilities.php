@@ -115,6 +115,26 @@ function getDataRowIdAndTable($table, $dataType='obj') {
         }
     }
 }
+function getAllRowsbyTable($table, $dataType='obj') {
+    global $conn;
+    $dataContainer = [];
+    $sql = "SELECT * FROM $table";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // output data of each row
+        if (isset($dataType) && $dataType == 'obj') {
+            while ($row = $result->fetch_object()) {
+                $dataContainer[] = $row;
+            }
+        } else {
+            while ($row = $result->fetch_assoc()) {
+                $dataContainer[] = $row;
+            }
+        }
+    }
+    return $dataContainer;
+}
 
 function getDataRowByTableAndId($table, $id) {
     global $conn;

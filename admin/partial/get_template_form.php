@@ -79,6 +79,9 @@
     </div>
 </div>
 <div class="form-group">
+    <input type="hidden" name="afile" value="<?php if (isset($editData->audio_file) && !empty($editData->audio_file)) { echo $editData->audio_file; }?>">
+    <input type="hidden" name="vfile" value="<?php if (isset($editData->video_file) && !empty($editData->video_file)) { echo $editData->video_file; }?>">
+    <input type="hidden" name="ifile" value="<?php if (isset($editData->image_file) && !empty($editData->image_file)) { echo $editData->image_file; }?>">
     <label for="comment">Body:</label><span class="text-danger">&nbsp;Required</span>
     <textarea class="form-control" rows="6" id="body" name="body"><?php if (isset($editData->body) && !empty($editData->body)) {
     echo $editData->body;
