@@ -485,7 +485,11 @@ function get_not_sent_message_contact_numbers(){
     $dataContainer = [];
     $table      =   'message_send_history';
     $limit      =   get_send_message_limit();
-    $sql        = "SELECT * FROM $table WHERE is_status=0 LIMIT $limit";
+    print '<pre>';
+    print_r($limit);
+    print '</pre>';
+    
+    echo $sql        = "SELECT * FROM $table WHERE is_status=0 LIMIT $limit"; exit;
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
