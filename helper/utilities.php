@@ -495,3 +495,29 @@ function get_not_sent_message_contact_numbers(){
     }
     return $dataContainer;
 }
+
+function get_whatsapp_balance($client_id){
+    $table      =   "client_information";
+    global $conn;
+    $sql        = "SELECT balance FROM $table";
+    $result     = $conn->query($sql);
+    $balance    =   0;
+    if ($result->num_rows > 0) {
+        $row    = $result->fetch_object();
+        return $row->balance;
+    }
+    return $balance;
+}
+
+function get_whatsapp_message_rate($client_id){
+    $table              =   "client_information";
+    global $conn;
+    $sql                = "SELECT whatsapp_rate FROM $table";
+    $result             = $conn->query($sql);
+    $whatsapp_rate      =   0;
+    if ($result->num_rows > 0) {
+        $row            = $result->fetch_object();
+        return $row->whatsapp_rate;
+    }
+    return $whatsapp_rate;
+}

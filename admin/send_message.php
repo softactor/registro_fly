@@ -36,6 +36,14 @@
 
                             <div class="row receiver_rows" id="receiver_row_s">
                                 <div class="col-md-12">
+                                    <?php if(isset($_SESSION['contact']) && !empty($_SESSION['contact'])){ ?>
+                                                <span class="text-red">
+                                                    <?php 
+                                                    echo $_SESSION['contact'];
+                                                    unset($_SESSION['contact']);
+                                                    ?>
+                                                </span>
+                                    <?php } ?>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Contact Number</label>
                                         <select class="form-control js-example-basic-multiple" id="message_receiver_multiple" name="receivers[]" multiple="multiple">
@@ -141,18 +149,42 @@
                                         <div class="form-group">
                                             <label for="comment">Header:</label><span class="text-danger">&nbsp;Required</span>
                                             <textarea class="form-control" rows="2" id="header" name="header"></textarea>
+                                            <?php if(isset($_SESSION['header']) && !empty($_SESSION['header'])){ ?>
+                                                <span class="text-red">
+                                                    <?php 
+                                                    echo $_SESSION['header'];
+                                                    unset($_SESSION['header']);
+                                                    ?>
+                                                </span>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="comment">Footer:</label><span class="text-danger">&nbsp;Required</span>
                                             <textarea class="form-control" rows="2" id="footer" name="footer"></textarea>
+                                            <?php if(isset($_SESSION['footer']) && !empty($_SESSION['footer'])){ ?>
+                                                <span class="text-red">
+                                                    <?php 
+                                                    echo $_SESSION['footer'];
+                                                    unset($_SESSION['footer']);
+                                                    ?>
+                                                </span>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="comment">Body:</label><span class="text-danger">&nbsp;Required</span>
                                     <textarea class="form-control" rows="6" id="body" name="body"></textarea>
+                                    <?php if(isset($_SESSION['body']) && !empty($_SESSION['body'])){ ?>
+                                    <span class="text-red">
+                                        <?php 
+                                        echo $_SESSION['body'];
+                                        unset($_SESSION['body']);
+                                        ?>
+                                    </span>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>

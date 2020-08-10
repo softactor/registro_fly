@@ -1,40 +1,94 @@
 <?php
 if (isset($_POST['sending_message']) && !empty($_POST['sending_message'])) {
-    $error_status = false;
+    $error = send_message_validation();
     
-    $message_type       =   $_POST['message_type'];
-    $template_type      =   $_POST['template_type'];
-    
-    $receiverData       =   (isset($_POST['receivers']) && !empty($_POST['receivers']) ? $_POST['receivers'] : '');
-    $groupData          =   (isset($_POST['groups']) && !empty($_POST['groups']) ? $_POST['groups'] : '');
-    $receivers          =   get_receivers_data();
-    $groupReceivers     =   get_group_receivers_data();
-    // check is message type is template data
-    if($template_type == 't'){
-        $messageData    =   get_message_temeplate_data();
-    }else{
-        $messageData    =   get_message_new_data();
-    }
-    $messageParam        =   [
-        'message'       =>  $messageData,
-        'receivers'     =>  $receiverData,
-        'groups'        =>  $groupData,
-    ];
-    $mresponse         =   store_message_processing($messageParam);
-    if(isset($mresponse) && $mresponse['status']    ==  'success'){
-        $mdetails           =   [
-            'message_id'    =>  $mresponse['last_id'],
-            'receivers'     =>  $receivers,
-            'groups'        =>  $groupReceivers,
+    if($error['status']){
+        $message_type       =   $_POST['message_type'];
+        $template_type      =   $_POST['template_type'];
+
+        $receiverData       =   (isset($_POST['receivers']) && !empty($_POST['receivers']) ? $_POST['receivers'] : '');
+        $groupData          =   (isset($_POST['groups']) && !empty($_POST['groups']) ? $_POST['groups'] : '');
+        $receivers          =   get_receivers_data();
+        $groupReceivers     =   get_group_receivers_data();
+        // check is message type is template data
+        if($template_type == 't'){
+            $messageData    =   get_message_temeplate_data();
+        }else{
+            $messageData    =   get_message_new_data();
+        }
+        $messageParam        =   [
             'message'       =>  $messageData,
+            'receivers'     =>  $receiverData,
+            'groups'        =>  $groupData,
         ];
-        $detailsResponse    =   store_message_details_processing($mdetails);
-        $_SESSION['success']        = "Data have been successfuly sent for message";
+        $mresponse         =   store_message_processing($messageParam);
+        if(isset($mresponse) && $mresponse['status']    ==  'success'){
+            $mdetails           =   [
+                'message_id'    =>  $mresponse['last_id'],
+                'receivers'     =>  $receivers,
+                'groups'        =>  $groupReceivers,
+                'message'       =>  $messageData,
+            ];
+            $detailsResponse    =   store_message_details_processing($mdetails);
+            $_SESSION['success']        = "Data have been successfuly sent for message";
+            header("location: send_message.php");
+            exit();
+        }
+    }else{
+        foreach($error['data'] as $ekey=>$edata){
+            $_SESSION[$ekey]    =   $edata;
+        }        
+        $_SESSION['error']        = "Please fill up the required fields";
         header("location: send_message.php");
         exit();
     }
 }
-
+function send_message_validation(){
+    $isError            =   true;
+    $errorMessage     =   [];
+    $anyContact         =   false;
+    if(isset($_POST['receivers']) && !empty($_POST['receivers'])){
+        $anyContact            =   true;
+    }
+    
+    if(isset($_POST['groups']) && !empty($_POST['groups'])){
+        $anyContact            =   true;
+    }
+    
+    if(!$anyContact){
+        $isError            =   false;
+        $errorMessage['contact']     =   'Contacts is required. It will be contact or group';
+    }else{
+        $errorMessage['contact']     =   '';
+    }
+    
+    if(empty($_POST['footer'])){
+        $isError            =   false;
+        $errorMessage['footer']     =   'Footer is required.';
+    }else{
+        $errorMessage['footer']     =   '';
+    }
+    
+    if(empty($_POST['header'])){
+        $isError            =   false;
+        $errorMessage['header']     =   'Header is required.';
+    }else{
+        $errorMessage['header']     =   '';
+    }
+    
+    if(empty($_POST['body'])){
+        $isError            =   false;
+        $errorMessage['body']     =   'Body is required.';
+    }else{
+        $errorMessage['body']     =   '';
+    }
+    
+    $feedback   =   [
+        'status'    =>   $isError,
+        'data'      =>   $errorMessage,
+    ];
+    return $feedback;
+}
 function get_receivers_data(){
     if(isset($_POST['receivers']) && !empty($_POST['receivers'])){
         $groupsPhoneNumbers     =   [];
@@ -115,6 +169,7 @@ function store_message_details_processing($data){
         foreach($receivers as $mh){
             if(!in_array($mh->contact_no, $contactContainer)){
                 $hisData    =   [
+                    'client_id'     =>  $_SESSION['logged']['user_id'],
                     'message_id'    =>  $message_id,
                     'audio_file'    =>  $message['afile'],
                     'video_file'    =>  $message['vfile'],
