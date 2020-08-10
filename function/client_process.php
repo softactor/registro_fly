@@ -9,11 +9,12 @@ if (isset($_POST['client_create']) && !empty($_POST['client_create'])) {
             $_SESSION['error_message'][$errorKey] = $errorVal;
         }
         $_SESSION['error'] = "Please fill up all required fields!";
-        header("location: group_add.php");
+        header("location: client_create.php");
         exit();
     } else {
-        $emailsql = "SELECT * FROM client_information where email='$email' and is_status=1";
-        $result = $conn->query($emailsql);
+        $email      =   $_POST['email'];
+        $emailsql   =   "SELECT * FROM client_information where email='$email' and is_status=1";
+        $result     =   $conn->query($emailsql);
         if ($result->num_rows > 0) {
             $_SESSION['error'] = "Found Duplicate Data";
             header("location: client_create.php");
@@ -30,6 +31,77 @@ if (isset($_POST['client_create']) && !empty($_POST['client_create'])) {
             exit();
         }
     }
+}
+if (isset($_POST['client_profile_update']) && !empty($_POST['client_profile_update'])) {
+    
+    $is_validation_success  =   client_validation();
+
+    if (!$is_validation_success['status']) {
+        foreach ($error_string as $errorKey => $errorVal) {
+            $_SESSION['error_message'][$errorKey] = $errorVal;
+        }
+        $_SESSION['error'] = "Please fill up all required fields!";
+        header("location: client_profile.php");
+        exit();
+    } else {
+        $email          =   $_POST['email'];
+        $edit_id        =   $_POST['edit_id'];
+        $user_id        =   $_POST['user_id'];
+        $emailsql       = "SELECT * FROM users WHERE email='$email' AND status=1 AND id!=$user_id";
+        $result         = $conn->query($emailsql);
+        if ($result->num_rows > 0) {
+            $_SESSION['error']      =    "Found Duplicate Data";
+            header("location: client_profile.php");
+            exit();
+        } else {
+            $userRes    =   update_client_users();
+            if($userRes['status']   ==  'success'){
+                if($userRes['status']   ==  'success'){
+                   $_SESSION['success']                =   "Client information have been successfully Updated";
+                }
+            }
+            header("location: client_profile.php");
+            exit();
+        }
+    }
+}
+function update_client_users(){
+    $cUpdate['first_name']     =   validate_text_input($_POST['first_name']);
+    $cUpdate['last_name']      =   validate_text_input($_POST['last_name']);
+    $cUpdate['sms_rate']       =   validate_text_input($_POST['sms_rate']);
+    $cUpdate['whatsapp_rate']  =   validate_text_input($_POST['whatsapp_rate']);
+    
+    $oldBalance                =   get_whatsapp_balance($_POST['user_id']);
+    $topUpBalance              =   (isset($_POST['top_up_balance']) && !empty($_POST['top_up_balance']) ? $_POST['top_up_balance'] : 0);
+    $cUpdate['balance']        =   $oldBalance+$topUpBalance;
+    
+    $cUpdate['company_name']        =   validate_text_input($_POST['company_name']);
+    $cUpdate['company_nature']      =   validate_text_input($_POST['company_nature']);
+    $cUpdate['company_description'] =   validate_text_input($_POST['company_description']);
+    
+    $cUpdate['company_email']       =   validate_text_input($_POST['company_email']);
+    $cUpdate['company_weblink']     =   validate_text_input($_POST['company_weblink']);
+    $cUpdate['company_address']     =   validate_text_input($_POST['company_address']);
+    
+    $cWhere['id']                   =   $_POST['edit_id'];
+    $res    =    updateData('client_information', $cUpdate, $cWhere);
+    
+    if(isset($_POST['password']) && !empty($_POST['password'])){
+        $user['password']       =   md5($_POST['password']);
+        
+    }
+    $user['user_type']      =   'client';
+    $user['first_name']     =   validate_text_input($_POST['first_name']);
+    $user['last_name']      =   validate_text_input($_POST['last_name']);
+    $user['email']          =   validate_text_input($_POST['email']);
+    $user['status']         =   1;
+    $user['updated_by']     =   $_SESSION['logged']['user_id'];
+    $user['updated_at']     =   date("Y-m-d H:i:s");
+    
+    $uWhere['id']           =   $_POST['user_id'];
+    $_SESSION['logged']['user_name']    =   $_POST['first_name'].' '.$_POST['last_name'];
+    $res    =   updateData('users', $user, $uWhere);
+    return $res;
 }
 function create_client_users(){
     $user['user_type']      =   'client';
@@ -71,25 +143,6 @@ function create_client($userId){
     return $res;
 }
 function client_validation(){
-    /*
-     * -------------------------------------------------------------------------
-     * Array
-        (
-            [first_name] => 
-            [last_name] => 
-            [service_type] => Array
-                (
-                    [0] => sms
-                )
-
-            [sms_rate] => 
-            [whatsapp_rate] => 
-            [balance] => 
-            [email] => 
-            [password] => 
-            [client_create] => Create
-        )
-     */
     $isError            =   false;
     $errorMessage[]     =   [];
     if(empty($_POST['first_name'])){

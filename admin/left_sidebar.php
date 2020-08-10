@@ -20,7 +20,7 @@
                     <li class=""><a href="contact_list.php"><i class="fa fa-address-book" aria-hidden="true"></i> Contact List</a></li>
                     <li class=""><a href="csv/contact_csv.csv"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download CSV Format</a></li>
                     <li class=""><a href="message_templates_list.php"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Template</a></li>
-                    <li><a href="message_queue_manage.php"><i class="fa fa-circle-o"></i> Queue Manage</a></li>
+                    <li><a href="message_pending_list.php"><i class="fa fa-circle-o"></i> Queue Manage</a></li>
                 </ul>
             </li>
             <li class="header">Links</li>

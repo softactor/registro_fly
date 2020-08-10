@@ -497,7 +497,7 @@ function get_not_sent_message_contact_numbers(){
 }
 
 function get_whatsapp_balance($client_id){
-    $table      =   "client_information";
+    $table      =   "client_information WHERE user_id=$client_id";
     global $conn;
     $sql        = "SELECT balance FROM $table";
     $result     = $conn->query($sql);
@@ -510,7 +510,7 @@ function get_whatsapp_balance($client_id){
 }
 
 function get_whatsapp_message_rate($client_id){
-    $table              =   "client_information";
+    $table              =   "client_information WHERE user_id=$client_id";
     global $conn;
     $sql                = "SELECT whatsapp_rate FROM $table";
     $result             = $conn->query($sql);
@@ -520,4 +520,16 @@ function get_whatsapp_message_rate($client_id){
         return $row->whatsapp_rate;
     }
     return $whatsapp_rate;
+}
+function get_client_id_by_user_id($userId){
+    $table              =   "client_information WHERE user_id=$userId";
+    global $conn;
+    $sql                = "SELECT id FROM $table";
+    $result             = $conn->query($sql);
+    $userId      =   0;
+    if ($result->num_rows > 0) {
+        $row            = $result->fetch_object();
+        return $row->id;
+    }
+    return $userId;
 }

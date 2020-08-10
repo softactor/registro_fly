@@ -14,6 +14,17 @@
         </a>
 
         <div class="navbar-custom-menu">
+            <?php
+                $balance            =  get_whatsapp_balance($_SESSION['logged']['user_id']);
+                $bgColor            =  ($balance <= 5 ? "text-danger": "text-success");
+            ?>
+            <div class="sms_balance_showing_top">
+                <ul>
+                    <li>
+                        <i class="fa fa-bell-o"></i> Remaining Balance:&nbsp; <div style="float: right; padding: 0 1%; background-color: white;" class="<?php echo $bgColor; ?>">$<?php echo number_format($balance,2,".","."); ?></div>
+                    </li>
+                </ul>
+            </div>
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
@@ -24,7 +35,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="client_profile.php" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="../function/logout.php" class="btn btn-default btn-flat">Sign out</a>

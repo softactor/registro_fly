@@ -41,3 +41,20 @@ table.list_table_custom_style tr td{
     padding:5px !important;
     vertical-align: top;
 }
+.sms_balance_showing_top{
+    float: left;
+    margin-top: 2.5%;
+    color: white;
+    font-weight: bold;
+}
+.sms_balance_showing_top ul{
+    list-style:none;
+    float:left;
+}
+.sms_balance_showing_top ul li{
+    float: left;
+    width: 235px;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 2%;
+}
