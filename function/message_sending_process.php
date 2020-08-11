@@ -150,7 +150,7 @@ function store_message_processing($messageData){
         'client_id' =>  $_SESSION['logged']['user_id'],
         'groups'    =>  json_encode($messageData['groups']),
         'receivers' =>  json_encode($messageData['receivers']),
-        'message'   =>  $messageData['message'],
+        'message'   =>  json_encode($messageData['message']),
         'create_at' =>  date('Y-m-d H:i:s'),
         'create_by' =>  $_SESSION['logged']['user_id'],
     ];  
@@ -161,6 +161,7 @@ function store_message_processing($messageData){
 }
 function store_message_details_processing($data){
     $contactContainer   =   [];
+    $clientId           =   $_SESSION['logged']['user_id'];
     $message_id         =   $data['message_id'];
     $receivers          =   $data['receivers'];
     $groups             =   $data['groups'];
@@ -169,7 +170,7 @@ function store_message_details_processing($data){
         foreach($receivers as $mh){
             if(!in_array($mh->contact_no, $contactContainer)){
                 $hisData    =   [
-                    'client_id'     =>  $_SESSION['logged']['user_id'],
+                    'client_id'     =>  $clientId,
                     'message_id'    =>  $message_id,
                     'audio_file'    =>  $message['afile'],
                     'video_file'    =>  $message['vfile'],
@@ -198,4 +199,16 @@ function store_message_details_processing($data){
             }
         }
     }
+}
+
+if(isset($_GET['process_type']) && $_GET['process_type'] == 'getSendingMessage'){
+    session_start();
+    date_default_timezone_set('Asia/Singapore');
+    include '../connection/connect.php';
+    include '../helper/utilities.php';
+    $id                 =   $_POST['id'];
+    $table              =   'message_send_history';
+    $editData          =   getDataRowByTableAndId($table, $id);
+    
+    include '../admin/partial/showing_sending_message.php';
 }

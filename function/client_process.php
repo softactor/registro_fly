@@ -34,6 +34,13 @@ if (isset($_POST['client_create']) && !empty($_POST['client_create'])) {
 }
 if (isset($_POST['client_profile_update']) && !empty($_POST['client_profile_update'])) {
     
+    // redirect location:
+    if(is_super_admin($_SESSION['logged']['user_id'])){
+        $redireclLocation       =   "client_edit.php?client_id=".$_POST['edit_id'];
+    }else{
+        $redireclLocation       =   "client_profile.php";
+    }
+    
     $is_validation_success  =   client_validation();
 
     if (!$is_validation_success['status']) {
@@ -41,7 +48,7 @@ if (isset($_POST['client_profile_update']) && !empty($_POST['client_profile_upda
             $_SESSION['error_message'][$errorKey] = $errorVal;
         }
         $_SESSION['error'] = "Please fill up all required fields!";
-        header("location: client_profile.php");
+        header("location: $redireclLocation");
         exit();
     } else {
         $email          =   $_POST['email'];
@@ -51,7 +58,7 @@ if (isset($_POST['client_profile_update']) && !empty($_POST['client_profile_upda
         $result         = $conn->query($emailsql);
         if ($result->num_rows > 0) {
             $_SESSION['error']      =    "Found Duplicate Data";
-            header("location: client_profile.php");
+            header("location: $redireclLocation");
             exit();
         } else {
             $userRes    =   update_client_users();
@@ -60,7 +67,7 @@ if (isset($_POST['client_profile_update']) && !empty($_POST['client_profile_upda
                    $_SESSION['success']                =   "Client information have been successfully Updated";
                 }
             }
-            header("location: client_profile.php");
+            header("location: $redireclLocation");
             exit();
         }
     }

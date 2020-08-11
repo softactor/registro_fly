@@ -55,16 +55,20 @@ $_SESSION['activeMenu'] = 'agency';
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">                            
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleName">SMS Rate</label>
-                                                <input type="text" class="form-control" id="sms_rate" placeholder="Enter SMS Rate" name="sms_rate" value="<?php echo $rowData->sms_rate; ?>">
+                                                <span class="pull-right-container">
+                                                    <small class="label pull-right bg-yellow-active">$&nbsp;<?php echo $rowData->sms_rate; ?></small>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleName">Whatsapp Rate</label>
-                                                <input type="text" class="form-control" id="whatsapp_rate" placeholder="Enter Whats App" name="whatsapp_rate" value="<?php echo $rowData->whatsapp_rate; ?>">
+                                                <span class="pull-right-container">
+                                                    <small class="label pull-right bg-yellow-active">$&nbsp;<?php echo $rowData->whatsapp_rate; ?></small>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>                                    
@@ -80,9 +84,9 @@ $_SESSION['activeMenu'] = 'agency';
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleName">Current Balance</label>
-                                                <span class="pull-right-container form-control">
-                                                    <small class="label pull-right bg-green"><?php echo get_whatsapp_balance($userData->id); ?></small>
-                                            </span>
+                                                <span class="pull-right-container">
+                                                    <small class="label pull-right bg-green">$&nbsp;<?php echo get_whatsapp_balance($userData->id); ?></small>
+                                                </span>
                                             </div>
                                         </div>
                                         <?php if(is_super_admin($userData->id)){ ?>

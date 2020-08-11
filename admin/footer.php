@@ -220,6 +220,20 @@ function get_template_message_form(template_id=null){
         }
     });
 }
+function show_sending_message_details(message_id){
+    $.ajax({
+        url: baseUrl + "function/message_sending_process.php?process_type=getSendingMessage",
+        type: 'POST',
+        data: 'id=' + message_id,
+        dataType: 'html',
+        success: function (response) {
+            $('#showingSendingMessageModal').modal('show');
+            $('#message_body').html(response);
+        }
+    });
+}
 </script>
 </body>
 </html>
+
+<?php include 'partial/showing_sending_message_modal.php'; ?>

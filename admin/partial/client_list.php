@@ -30,11 +30,29 @@ if (isset($agencyData) && !empty($agencyData)) {
                         <td><?php echo (isset($adata->first_name) && !empty($adata->first_name) ? $adata->first_name : 'No data'); ?></td>
                         <td><?php echo (isset($adata->last_name) && !empty($adata->last_name) ? $adata->last_name : 'No data'); ?></td>
                         <td><?php echo 'email';//get_client_email();; ?></td>
-                        <td><?php echo (isset($adata->sms_rate) && !empty($adata->sms_rate) ? $adata->sms_rate : 'No data'); ?></td>
-                        <td><?php echo (isset($adata->whatsapp_rate) && !empty($adata->whatsapp_rate) ? $adata->whatsapp_rate : 'No data'); ?></td>
-                        <td><?php echo (isset($adata->balance) && !empty($adata->balance) ? $adata->balance : 'No data'); ?></td>
                         <td>
-                            <a href="user_edit.php?user_id=<?php echo $adata->id; ?>" class="btn btn-info">
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-yellow-active">
+                            <?php echo (isset($adata->sms_rate) && !empty($adata->sms_rate) ? $adata->sms_rate : 'No data'); ?>
+                                </small>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-yellow-active">
+                            <?php echo (isset($adata->whatsapp_rate) && !empty($adata->whatsapp_rate) ? $adata->whatsapp_rate : 'No data'); ?>
+                                </small>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="pull-right-container">
+                                <small class="label pull-right bg-green-active">
+                            <?php echo (isset($adata->balance) && !empty($adata->balance) ? $adata->balance : 'No data'); ?>
+                                </small>
+                            </span>
+                        </td>
+                        <td>
+                            <a href="client_edit.php?client_id=<?php echo $adata->id; ?>" class="btn btn-info">
                                 <span class="fa fa-pencil-square-o"></span>&nbsp;Edit
                             </a>
                             <a href="javascript:void(0)" class="btn btn-danger" onclick="delete_templates('<?php echo $data->id; ?>');">

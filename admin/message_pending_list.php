@@ -46,6 +46,7 @@
                                         <th>Client Name</th>
                                         <th>Contact No</th>
                                         <th>Create Date</th>
+                                        <th>Message</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -59,6 +60,7 @@
                                         <td><?php echo get_client_name($data->client_id) ?></td>
                                         <td><?php echo $data->contact_no ?></td>
                                         <td><?php echo human_format_date($data->created_at) ?></td>
+                                        <td><span style="cursor: pointer;" class="fa fa-comment-o" onclick="show_sending_message_details(<?php echo $data->id; ?>)">&nbsp;Show Message</span></td>
                                         <td>
                                             <?php
                                                 if($data->sent_status == 0){

@@ -15,7 +15,8 @@
 
         <div class="navbar-custom-menu">
             <?php
-                $balance            =  get_whatsapp_balance($_SESSION['logged']['user_id']);
+                $userId             =   $_SESSION['logged']['user_id'];
+                $balance            =   get_whatsapp_balance($userId);
                 $bgColor            =  ($balance <= 5 ? "text-danger": "text-success");
             ?>
             <div class="sms_balance_showing_top">
@@ -35,7 +36,12 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="client_profile.php" class="btn btn-default btn-flat">Profile</a>
+                                <?php
+                                if(is_super_admin($userId)){ ?>
+                                    <a href="user_edit.php?user_id=<?php echo $userId;?>" class="btn btn-default btn-flat">Profile</a>
+                                <?php }else{ ?>
+                                    <a href="client_profile.php" class="btn btn-default btn-flat">Profile</a>
+                                <?php } ?>
                             </div>
                             <div class="pull-right">
                                 <a href="../function/logout.php" class="btn btn-default btn-flat">Sign out</a>
