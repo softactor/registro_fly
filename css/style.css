@@ -73,3 +73,13 @@ table.list_table_custom_style tr td{
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
 }
+
+.modal-header .close {
+    margin-top: 5px;
+}
+button.close {
+    padding: 7px;
+}
+.close {
+    font-size: 15px;
+}
