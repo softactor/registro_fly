@@ -59,6 +59,13 @@ table.list_table_custom_style tr td{
     margin-top: 2%;
 }
 
+.login-box-body{
+    background-image: url("../images/icon/login_body.png"); /* The image used */
+    background-color: #cccccc; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
 .login_bg{
     background-image: url("../images/icon/admin_bg.jpg"); /* The image used */
     background-color: #cccccc; /* Used if the image is unavailable */
